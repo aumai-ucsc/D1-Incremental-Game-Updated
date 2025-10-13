@@ -9,16 +9,22 @@ let counter = 0;
 const counterDisplay = document.createElement("div");
 counterDisplay.textContent = `${counter} mana`;
 
-//Upgrade Button Element
+//Upgrade Button Elements
 const upgrade1 = document.createElement("button");
 upgrade1.textContent = "Pondering Orb - Upgrade Cost 10";
+const upgrade2 = document.createElement("button");
+upgrade2.textContent = "Pondering Orb - Upgrade Cost 100";
+const upgrade3 = document.createElement("button");
+upgrade3.textContent = "Pondering Orb - Upgrade Cost 1000";
 
 //Adding Elements to Screen
 document.body.appendChild(orb);
 document.body.appendChild(counterDisplay);
 document.body.appendChild(upgrade1);
+document.body.appendChild(upgrade2);
+document.body.appendChild(upgrade3);
 
-//Changing Variables
+//Changing Variables | increaseRate is the value of increases per second
 let increaseRate = 0;
 
 //Event Listener Clicks Orb | Angel Castaneda
@@ -43,21 +49,36 @@ function frame() {
   autoIncrement(timeChange * increaseRate);
   requestAnimationFrame(frame);
 
-  //Function calls that happen every time the page is refreshed
+  //Function calls that enable and disable upgrade buttons
   if (counter >= 10) {
     upgrade1.disabled = false;
+  }
+  if (counter >= 100) {
+    upgrade2.disabled = false;
+  }
+  if (counter >= 1000) {
+    upgrade3.disabled = false;
+  }
+
+  if (counter < 10) {
+    upgrade1.disabled = true;
+  }
+  if (counter < 100) {
+    upgrade2.disabled = true;
+  }
+  if (counter < 1000) {
+    upgrade3.disabled = true;
   }
 }
 
 //Disable and Enable Upgrade
 upgrade1.disabled = true;
+upgrade2.disabled = true;
+upgrade3.disabled = true;
 
 //Upgrade1 event listener
 upgrade1.addEventListener("click", () => {
   counter -= 10;
-  if (counter < 10) {
-    upgrade1.disabled = true;
-  }
   counterDisplay.textContent = `${counter} mana`;
   console.log(`Button clicked! Total: ${counter}`);
   increaseRate++;
