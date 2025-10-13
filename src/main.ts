@@ -1,4 +1,17 @@
 import "./style.css";
+//Interface for upgrades
+interface Upgrade {
+  name: string;
+  cost: number;
+  generation: number;
+}
+
+//Upgrade List
+const _availableItems: Upgrade[] = [
+  { name: "Pondering Orb", cost: 10, generation: 0.1 },
+  { name: "Telescope", cost: 100, generation: 2 },
+  { name: "Wizard's Tower", cost: 1000, generation: 50 },
+];
 
 //Growth Rate Element | increaseRate is the value of increases per second
 let increaseRate = 0;
