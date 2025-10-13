@@ -6,6 +6,7 @@ interface Upgrade {
   name: string;
   cost: number;
   generation: number;
+  ammount: number;
   button: HTMLButtonElement; //This holds the clickable button for each upgrade
 }
 
@@ -45,9 +46,48 @@ function buyUpgrade(upgrade: Upgrade) {
 //Upgrade List
 const tempButton = document.createElement("button");
 const availableItems: Upgrade[] = [
-  { name: "Pondering Orb", cost: 10, generation: 0.1, button: tempButton },
-  { name: "Telescope", cost: 100, generation: 2, button: tempButton },
-  { name: "Wizard's Tower", cost: 1000, generation: 50, button: tempButton },
+  {
+    name: "Pondering Orb",
+    cost: 10,
+    generation: 0.1,
+    ammount: 0,
+    button: tempButton,
+  },
+  {
+    name: "Telescope",
+    cost: 100,
+    generation: 2,
+    ammount: 0,
+    button: tempButton,
+  },
+  {
+    name: "Scrying Pool",
+    cost: 500,
+    generation: 15,
+    ammount: 0,
+    button: tempButton,
+  },
+  {
+    name: "Wizard's Tower",
+    cost: 1000,
+    generation: 50,
+    ammount: 0,
+    button: tempButton,
+  },
+  {
+    name: "Library",
+    cost: 10000,
+    generation: 150,
+    ammount: 0,
+    button: tempButton,
+  },
+  {
+    name: "Mystical Site",
+    cost: 1000000,
+    generation: 10000,
+    ammount: 0,
+    button: tempButton,
+  },
 ];
 
 //Growth Rate Element | increaseRate is the value of increases per second
@@ -72,6 +112,9 @@ for (const upgrade of availableItems) {
   upgrade.button = createUpgradeButton(upgrade);
   document.body.appendChild(upgrade.button);
 }
+
+//Adding descriptions to each button/upgrade option
+availableItems[0].button.title = "Ponder the orb for 0.1 mana per second";
 
 //Event Listener Clicks Orb | Angel Castaneda
 orb.addEventListener("click", () => {
