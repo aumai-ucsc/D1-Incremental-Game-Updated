@@ -10,7 +10,7 @@ const orb = document.createElement("button");
 orb.textContent = "🔮";
 
 //Increasing Counter Element
-let counter = 100000;
+let counter = 0;
 const counterDisplay = document.createElement("div");
 counterDisplay.textContent = `${counter} mana`;
 
