@@ -1,16 +1,53 @@
 import "./style.css";
+
 //Interface for upgrades
 interface Upgrade {
+  //Variables
   name: string;
   cost: number;
   generation: number;
+  button: HTMLButtonElement; //This holds the clickable button for each upgrade
+}
+
+//Value to jump price of upgrade after every purchase
+const priceIncrease = 1.15;
+
+//Function that creates a button for an upgrade. Returns the button so that the upgrade can add it to thier variables
+function createUpgradeButton(upgrade: Upgrade) {
+  const button = document.createElement("button");
+  button.textContent = `${upgrade.name} | Cost ${upgrade.cost.toFixed(2)} mana`;
+  button.onclick = () => buyUpgrade(upgrade);
+  return button;
+}
+
+//Disable and Enable Upgrade Button Function
+function upgradeOnOff(upgrade: Upgrade) {
+  if (counter < upgrade.cost) {
+    upgrade.button.disabled = true;
+  } else {
+    upgrade.button.disabled = false;
+  }
+}
+
+//Function to buy upgrades
+function buyUpgrade(upgrade: Upgrade) {
+  counter -= upgrade.cost;
+  counterDisplay.textContent = `${counter} mana`;
+  console.log(`Button clicked! Total: ${counter}`);
+  increaseRate += upgrade.generation;
+  growthRate.textContent = `${increaseRate.toFixed(2)} mana per second`;
+  upgrade.cost *= priceIncrease;
+  upgrade.button.textContent = `${upgrade.name} | Cost ${
+    upgrade.cost.toFixed(2)
+  } mana`;
 }
 
 //Upgrade List
-const _availableItems: Upgrade[] = [
-  { name: "Pondering Orb", cost: 10, generation: 0.1 },
-  { name: "Telescope", cost: 100, generation: 2 },
-  { name: "Wizard's Tower", cost: 1000, generation: 50 },
+const tempButton = document.createElement("button");
+const availableItems: Upgrade[] = [
+  { name: "Pondering Orb", cost: 10, generation: 0.1, button: tempButton },
+  { name: "Telescope", cost: 100, generation: 2, button: tempButton },
+  { name: "Wizard's Tower", cost: 1000, generation: 50, button: tempButton },
 ];
 
 //Growth Rate Element | increaseRate is the value of increases per second
@@ -27,25 +64,14 @@ let counter = 0;
 const counterDisplay = document.createElement("div");
 counterDisplay.textContent = `${counter} mana`;
 
-//Upgrade Button Elements
-let costUp1 = 10;
-let costUp2 = 100;
-let costUp3 = 1000;
-const priceIncrease = 1.15;
-const upgrade1 = document.createElement("button");
-upgrade1.textContent = `Pondering Orb - Upgrade Cost ${costUp1.toFixed(2)}`;
-const upgrade2 = document.createElement("button");
-upgrade2.textContent = `Telescope - Upgrade Cost ${costUp2.toFixed(2)}`;
-const upgrade3 = document.createElement("button");
-upgrade3.textContent = `Wizard's Tower - Upgrade Cost ${costUp3.toFixed(2)}`;
-
 //Adding Elements to Screen
 document.body.appendChild(growthRate);
 document.body.appendChild(orb);
 document.body.appendChild(counterDisplay);
-document.body.appendChild(upgrade1);
-document.body.appendChild(upgrade2);
-document.body.appendChild(upgrade3);
+for (const upgrade of availableItems) {
+  upgrade.button = createUpgradeButton(upgrade);
+  document.body.appendChild(upgrade.button);
+}
 
 //Event Listener Clicks Orb | Angel Castaneda
 orb.addEventListener("click", () => {
@@ -69,65 +95,11 @@ function frame() {
   autoIncrement(timeChange * increaseRate);
   requestAnimationFrame(frame);
 
-  //Function calls that enable and disable upgrade buttons
-  if (counter >= costUp1) {
-    upgrade1.disabled = false;
-  }
-  if (counter >= costUp2) {
-    upgrade2.disabled = false;
-  }
-  if (counter >= costUp3) {
-    upgrade3.disabled = false;
-  }
-
-  if (counter < costUp1) {
-    upgrade1.disabled = true;
-  }
-  if (counter < costUp2) {
-    upgrade2.disabled = true;
-  }
-  if (counter < costUp3) {
-    upgrade3.disabled = true;
+  //Function call that enable and disable upgrade buttons
+  for (const upgrade of availableItems) {
+    upgradeOnOff(upgrade);
   }
 }
-
-//Disable and Enable Upgrade
-upgrade1.disabled = true;
-upgrade2.disabled = true;
-upgrade3.disabled = true;
-
-//Upgrade1 event listener
-upgrade1.addEventListener("click", () => {
-  counter -= costUp1;
-  counterDisplay.textContent = `${counter} mana`;
-  console.log(`Button clicked! Total: ${counter}`);
-  increaseRate += 0.1;
-  growthRate.textContent = `${increaseRate.toFixed(2)} mana per second`;
-  costUp1 *= priceIncrease;
-  upgrade1.textContent = `Pondering Orb - Upgrade Cost ${costUp1.toFixed(2)}`;
-});
-
-//Upgrade2 event listener
-upgrade2.addEventListener("click", () => {
-  counter -= costUp2;
-  counterDisplay.textContent = `${counter} mana`;
-  console.log(`Button clicked! Total: ${counter}`);
-  increaseRate += 2.0;
-  growthRate.textContent = `${increaseRate.toFixed(2)} mana per second`;
-  costUp2 *= priceIncrease;
-  upgrade2.textContent = `Telescope - Upgrade Cost ${costUp2.toFixed(2)}`;
-});
-
-//Upgrade3 event listener
-upgrade3.addEventListener("click", () => {
-  counter -= costUp3;
-  counterDisplay.textContent = `${counter} mana`;
-  console.log(`Button clicked! Total: ${counter}`);
-  increaseRate += 50.0;
-  growthRate.textContent = `${increaseRate.toFixed(2)} mana per second`;
-  costUp3 *= priceIncrease;
-  upgrade3.textContent = `Wizard's Tower - Upgrade Cost ${costUp3.toFixed(2)}`;
-});
 
 //Request auto increment | Function that increases the counter by the increase value
 function autoIncrement(increase: number) {
