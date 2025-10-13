@@ -10,17 +10,21 @@ const orb = document.createElement("button");
 orb.textContent = "🔮";
 
 //Increasing Counter Element
-let counter = 0;
+let counter = 100000;
 const counterDisplay = document.createElement("div");
 counterDisplay.textContent = `${counter} mana`;
 
 //Upgrade Button Elements
+let costUp1 = 10;
+let costUp2 = 100;
+let costUp3 = 1000;
+const priceIncrease = 1.15;
 const upgrade1 = document.createElement("button");
-upgrade1.textContent = "Pondering Orb - Upgrade Cost 10";
+upgrade1.textContent = `Pondering Orb - Upgrade Cost ${costUp1.toFixed(2)}`;
 const upgrade2 = document.createElement("button");
-upgrade2.textContent = "Pondering Orb - Upgrade Cost 100";
+upgrade2.textContent = `Telescope - Upgrade Cost ${costUp2.toFixed(2)}`;
 const upgrade3 = document.createElement("button");
-upgrade3.textContent = "Pondering Orb - Upgrade Cost 1000";
+upgrade3.textContent = `Wizard's Tower - Upgrade Cost ${costUp3.toFixed(2)}`;
 
 //Adding Elements to Screen
 document.body.appendChild(growthRate);
@@ -53,23 +57,23 @@ function frame() {
   requestAnimationFrame(frame);
 
   //Function calls that enable and disable upgrade buttons
-  if (counter >= 10) {
+  if (counter >= costUp1) {
     upgrade1.disabled = false;
   }
-  if (counter >= 100) {
+  if (counter >= costUp2) {
     upgrade2.disabled = false;
   }
-  if (counter >= 1000) {
+  if (counter >= costUp3) {
     upgrade3.disabled = false;
   }
 
-  if (counter < 10) {
+  if (counter < costUp1) {
     upgrade1.disabled = true;
   }
-  if (counter < 100) {
+  if (counter < costUp2) {
     upgrade2.disabled = true;
   }
-  if (counter < 1000) {
+  if (counter < costUp3) {
     upgrade3.disabled = true;
   }
 }
@@ -81,29 +85,35 @@ upgrade3.disabled = true;
 
 //Upgrade1 event listener
 upgrade1.addEventListener("click", () => {
-  counter -= 10;
+  counter -= costUp1;
   counterDisplay.textContent = `${counter} mana`;
   console.log(`Button clicked! Total: ${counter}`);
   increaseRate += 0.1;
   growthRate.textContent = `${increaseRate.toFixed(2)} mana per second`;
+  costUp1 *= priceIncrease;
+  upgrade1.textContent = `Pondering Orb - Upgrade Cost ${costUp1.toFixed(2)}`;
 });
 
 //Upgrade2 event listener
 upgrade2.addEventListener("click", () => {
-  counter -= 100;
+  counter -= costUp2;
   counterDisplay.textContent = `${counter} mana`;
   console.log(`Button clicked! Total: ${counter}`);
   increaseRate += 2.0;
   growthRate.textContent = `${increaseRate.toFixed(2)} mana per second`;
+  costUp2 *= priceIncrease;
+  upgrade2.textContent = `Telescope - Upgrade Cost ${costUp2.toFixed(2)}`;
 });
 
 //Upgrade3 event listener
 upgrade3.addEventListener("click", () => {
-  counter -= 1000;
+  counter -= costUp3;
   counterDisplay.textContent = `${counter} mana`;
   console.log(`Button clicked! Total: ${counter}`);
   increaseRate += 50.0;
   growthRate.textContent = `${increaseRate.toFixed(2)} mana per second`;
+  costUp3 *= priceIncrease;
+  upgrade3.textContent = `Wizard's Tower - Upgrade Cost ${costUp3.toFixed(2)}`;
 });
 
 //Request auto increment | Function that increases the counter by the increase value
