@@ -13,10 +13,17 @@ counterDisplay.textContent = `${counter} mana`;
 document.body.appendChild(orb);
 document.body.appendChild(counterDisplay);
 
-//Event Listener
-//Angel Castaneda
+//Event Listener | Angel Castaneda
 orb.addEventListener("click", () => {
   counter++;
   counterDisplay.textContent = `${counter} mana`;
   console.log(`Button clicked! Total: ${counter}`);
 });
+
+//Auto Clicker set to activate every second
+setInterval(autoClick, 1000);
+function autoClick() {
+  counter++;
+  counterDisplay.textContent = `${counter} mana`;
+  console.log(`Button auto-clicked! Total: ${counter}`);
+}
