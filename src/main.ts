@@ -8,6 +8,7 @@ interface Upgrade {
   generation: number;
   ammount: number;
   button: HTMLButtonElement; //This holds the clickable button for each upgrade
+  description: HTMLDivElement; //This holds the display elements for each upgrade
 }
 
 //Value to jump price of upgrade after every purchase
@@ -36,15 +37,25 @@ function buyUpgrade(upgrade: Upgrade) {
   counterDisplay.textContent = `${counter} mana`;
   console.log(`Button clicked! Total: ${counter}`);
   increaseRate += upgrade.generation;
-  growthRate.textContent = `${increaseRate.toFixed(2)} mana per second`;
+  growthRate.textContent = `${increaseRate.toFixed(1)} mana per second`;
+  upgrade.ammount++;
   upgrade.cost *= priceIncrease;
   upgrade.button.textContent = `${upgrade.name} | Cost ${
     upgrade.cost.toFixed(2)
   } mana`;
+  updateDescription(upgrade);
+}
+
+//Function to create descritions
+function createDescription(upgrade: Upgrade) {
+  const description = document.createElement("div");
+  description.textContent = `${upgrade.name}s owned: ${upgrade.ammount}`;
+  return description;
 }
 
 //Upgrade List
 const tempButton = document.createElement("button");
+const tempDescription = document.createElement("div");
 const availableItems: Upgrade[] = [
   {
     name: "Pondering Orb",
@@ -52,6 +63,7 @@ const availableItems: Upgrade[] = [
     generation: 0.1,
     ammount: 0,
     button: tempButton,
+    description: tempDescription,
   },
   {
     name: "Telescope",
@@ -59,6 +71,7 @@ const availableItems: Upgrade[] = [
     generation: 2,
     ammount: 0,
     button: tempButton,
+    description: tempDescription,
   },
   {
     name: "Scrying Pool",
@@ -66,6 +79,7 @@ const availableItems: Upgrade[] = [
     generation: 15,
     ammount: 0,
     button: tempButton,
+    description: tempDescription,
   },
   {
     name: "Wizard's Tower",
@@ -73,6 +87,7 @@ const availableItems: Upgrade[] = [
     generation: 50,
     ammount: 0,
     button: tempButton,
+    description: tempDescription,
   },
   {
     name: "Library",
@@ -80,6 +95,7 @@ const availableItems: Upgrade[] = [
     generation: 150,
     ammount: 0,
     button: tempButton,
+    description: tempDescription,
   },
   {
     name: "Mystical Site",
@@ -87,13 +103,14 @@ const availableItems: Upgrade[] = [
     generation: 10000,
     ammount: 0,
     button: tempButton,
+    description: tempDescription,
   },
 ];
 
 //Growth Rate Element | increaseRate is the value of increases per second
 let increaseRate = 0;
 const growthRate = document.createElement("div");
-growthRate.textContent = `${increaseRate.toFixed(2)} mana per second`;
+growthRate.textContent = `${increaseRate.toFixed(1)} mana per second`;
 
 //Orb Button Element
 const orb = document.createElement("button");
@@ -111,10 +128,51 @@ document.body.appendChild(counterDisplay);
 for (const upgrade of availableItems) {
   upgrade.button = createUpgradeButton(upgrade);
   document.body.appendChild(upgrade.button);
+  upgrade.description = createDescription(upgrade);
+  document.body.appendChild(upgrade.description);
+  updateDescription(upgrade);
 }
 
-//Adding descriptions to each button/upgrade option
-availableItems[0].button.title = "Ponder the orb for 0.1 mana per second";
+//Personalized descriptions for each upgrade type
+function updateDescription(upgrade: Upgrade) {
+  upgrade.description.textContent =
+    `${upgrade.name}s owned: ${upgrade.ammount}`;
+  switch (upgrade) {
+    case availableItems[0]: {
+      upgrade.description.innerHTML +=
+        "<br>Ponder the orb to gain 0.1 mana per second<p>";
+      break;
+    }
+    case availableItems[1]: {
+      availableItems[1].description.innerHTML +=
+        "<br>Observe the stars to gain 2 mana per second<p>";
+      break;
+    }
+
+    case availableItems[2]: {
+      availableItems[2].description.innerHTML +=
+        "<br>Divine the future to gain 15 mana per second<p>";
+      break;
+    }
+
+    case availableItems[3]: {
+      availableItems[3].description.innerHTML +=
+        "<br>Seclude yourself to gain 50 mana per second<p>";
+      break;
+    }
+    case availableItems[4]: {
+      availableItems[4].description.innerHTML +=
+        "<br>Enjoy endless tomes to gain 150 mana per second<p>";
+      break;
+    }
+
+    case availableItems[5]: {
+      availableItems[5].description.innerHTML +=
+        "<br>Display your mastery to gain 10,000 mana per second<p>";
+      break;
+    }
+  }
+}
 
 //Event Listener Clicks Orb | Angel Castaneda
 orb.addEventListener("click", () => {
