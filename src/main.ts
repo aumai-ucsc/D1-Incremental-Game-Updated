@@ -14,44 +14,6 @@ interface Upgrade {
 //Value to jump price of upgrade after every purchase
 const priceIncrease = 1.15;
 
-//Function that creates a button for an upgrade. Returns the button so that the upgrade can add it to thier variables
-function createUpgradeButton(upgrade: Upgrade) {
-  const button = document.createElement("button");
-  button.textContent = `${upgrade.name} | Cost ${upgrade.cost.toFixed(2)} mana`;
-  button.onclick = () => buyUpgrade(upgrade);
-  return button;
-}
-
-//Disable and Enable Upgrade Button Function
-function upgradeOnOff(upgrade: Upgrade) {
-  if (counter < upgrade.cost) {
-    upgrade.button.disabled = true;
-  } else {
-    upgrade.button.disabled = false;
-  }
-}
-
-//Function to buy upgrades
-function buyUpgrade(upgrade: Upgrade) {
-  counter -= upgrade.cost;
-  counterDisplay.textContent = `${counter} mana`;
-  increaseRate += upgrade.generation;
-  growthRate.textContent = `${increaseRate.toFixed(1)} mana per second`;
-  upgrade.ammount++;
-  upgrade.cost *= priceIncrease;
-  upgrade.button.textContent = `${upgrade.name} | Cost ${
-    upgrade.cost.toFixed(2)
-  } mana`;
-  updateDescription(upgrade);
-}
-
-//Function to create descritions
-function createDescription(upgrade: Upgrade) {
-  const description = document.createElement("div");
-  description.textContent = `${upgrade.name}s owned: ${upgrade.ammount}`;
-  return description;
-}
-
 //Upgrade List
 const tempButton = document.createElement("button");
 const tempDescription = document.createElement("div");
@@ -105,6 +67,44 @@ const availableItems: Upgrade[] = [
     description: tempDescription,
   },
 ];
+
+//Function that creates a button for an upgrade. Returns the button so that the upgrade can add it to thier variables
+function createUpgradeButton(upgrade: Upgrade) {
+  const button = document.createElement("button");
+  button.textContent = `${upgrade.name} | Cost ${upgrade.cost.toFixed(2)} mana`;
+  button.onclick = () => buyUpgrade(upgrade);
+  return button;
+}
+
+//Disable and Enable Upgrade Button Function
+function upgradeOnOff(upgrade: Upgrade) {
+  if (counter < upgrade.cost) {
+    upgrade.button.disabled = true;
+  } else {
+    upgrade.button.disabled = false;
+  }
+}
+
+//Function to buy upgrades
+function buyUpgrade(upgrade: Upgrade) {
+  counter -= upgrade.cost;
+  counterDisplay.textContent = `${counter} mana`;
+  increaseRate += upgrade.generation;
+  growthRate.textContent = `${increaseRate.toFixed(1)} mana per second`;
+  upgrade.ammount++;
+  upgrade.cost *= priceIncrease;
+  upgrade.button.textContent = `${upgrade.name} | Cost ${
+    upgrade.cost.toFixed(2)
+  } mana`;
+  updateDescription(upgrade);
+}
+
+//Function to create descritions
+function createDescription(upgrade: Upgrade) {
+  const description = document.createElement("div");
+  description.textContent = `${upgrade.name}s owned: ${upgrade.ammount}`;
+  return description;
+}
 
 //Growth Rate Element | increaseRate is the value of increases per second
 let increaseRate = 0;
