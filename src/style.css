@@ -1,5 +1,4 @@
-.icon {
-  width: 64px;
-  vertical-align: top;
-  border: 1px solid salmon;
+body {
+  background: rgb(205, 145, 240);
+  text-align: center;
 }
