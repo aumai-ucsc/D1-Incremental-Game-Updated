@@ -1,20 +1,16 @@
 import "./style.css";
 
-//Interface for upgrades
 interface Upgrade {
-  //Variables
   name: string;
   cost: number;
   generation: number;
   ammount: number;
-  button: HTMLButtonElement; //This holds the clickable button for each upgrade
-  description: HTMLDivElement; //This holds the display elements for each upgrade
+  button: HTMLButtonElement; //Clickable button
+  description: HTMLDivElement; //Display elements
 }
 
-//Value to jump price of upgrade after every purchase
 const priceIncrease = 1.15;
 
-//Upgrade List
 const tempButton = document.createElement("button");
 const tempDescription = document.createElement("div");
 const availableItems: Upgrade[] = [
@@ -68,7 +64,7 @@ const availableItems: Upgrade[] = [
   },
 ];
 
-//Function that creates a button for an upgrade. Returns the button so that the upgrade can add it to thier variables
+//Button creation
 function createUpgradeButton(upgrade: Upgrade) {
   const button = document.createElement("button");
   button.textContent = `${upgrade.name} | Cost ${upgrade.cost.toFixed(2)} mana`;
@@ -76,7 +72,7 @@ function createUpgradeButton(upgrade: Upgrade) {
   return button;
 }
 
-//Disable and Enable Upgrade Button Function
+//Disable and Enable Button
 function upgradeOnOff(upgrade: Upgrade) {
   if (counter < upgrade.cost) {
     upgrade.button.disabled = true;
@@ -85,7 +81,7 @@ function upgradeOnOff(upgrade: Upgrade) {
   }
 }
 
-//Function to buy upgrades
+//Buy Upgrade Logic
 function buyUpgrade(upgrade: Upgrade) {
   counter -= upgrade.cost;
   counterDisplay.textContent = `${counter} mana`;
@@ -99,7 +95,7 @@ function buyUpgrade(upgrade: Upgrade) {
   updateDescription(upgrade);
 }
 
-//Function to create descritions
+//Create Descsription UI
 function createDescription(upgrade: Upgrade) {
   const description = document.createElement("div");
   description.textContent = `${upgrade.name}s owned: ${upgrade.ammount}`;
@@ -120,7 +116,7 @@ let counter = 0;
 const counterDisplay = document.createElement("div");
 counterDisplay.textContent = `${counter} mana`;
 
-//Adding Elements to Screen
+//Elements to Screen
 document.body.appendChild(growthRate);
 document.body.appendChild(orb);
 document.body.appendChild(counterDisplay);
@@ -179,7 +175,6 @@ orb.addEventListener("click", () => {
   counterDisplay.textContent = `${counter} mana`;
 });
 
-//Variables to track changes in time between performance.now() calls
 let timeChange = 0;
 let lastCall = performance.now();
 let thisCall = performance.now();
@@ -199,7 +194,7 @@ function frame() {
   }
 }
 
-//Request auto increment | Function that increases the counter by the increase value
+//Auto increment logic
 function autoIncrement(increase: number) {
   counter += increase;
   counterDisplay.textContent = `${counter.toFixed(2)} mana`;
