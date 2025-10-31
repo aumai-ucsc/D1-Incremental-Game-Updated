@@ -35,7 +35,6 @@ function upgradeOnOff(upgrade: Upgrade) {
 function buyUpgrade(upgrade: Upgrade) {
   counter -= upgrade.cost;
   counterDisplay.textContent = `${counter} mana`;
-  console.log(`Button clicked! Total: ${counter}`);
   increaseRate += upgrade.generation;
   growthRate.textContent = `${increaseRate.toFixed(1)} mana per second`;
   upgrade.ammount++;
@@ -178,7 +177,6 @@ function updateDescription(upgrade: Upgrade) {
 orb.addEventListener("click", () => {
   counter++;
   counterDisplay.textContent = `${counter} mana`;
-  console.log(`Button clicked! Total: ${counter}`);
 });
 
 //Variables to track changes in time between performance.now() calls
@@ -192,7 +190,6 @@ function frame() {
   lastCall = thisCall;
   thisCall = performance.now();
   timeChange = (thisCall - lastCall) / 1000;
-  console.log(`timeChange is ${timeChange}`);
   autoIncrement(timeChange * increaseRate);
   requestAnimationFrame(frame);
 
@@ -206,5 +203,4 @@ function frame() {
 function autoIncrement(increase: number) {
   counter += increase;
   counterDisplay.textContent = `${counter.toFixed(2)} mana`;
-  console.log(`Button auto-clicked! Total: ${counter.toFixed(1)}`);
 }
