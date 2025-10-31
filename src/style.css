@@ -5,28 +5,110 @@ body {
 }
 #orb {
   font-size: 60px;
-  width: 120px;
-  height: 120px;
-  border-radius: 60px;
-  border: 3px solid #c68b59;
-  background-color: #f5deb3;
+  width: 150px;
+  height: 150px;
+  border-radius: 80px;
+  border: 3px solid #311ca7;
+  background-color: #826cff;
   cursor: pointer;
 }
+#orb:hover {
+  font-size: 70px;
+}
+
+#counter {
+  font-size: 30px;
+}
+
+#rate {
+  font-size: 30px;
+}
 #ponder {
-  background-color: #f5deb3;
+  background-color: #e0f0ff;
+  color: #004080;
+  border: 3px solid #0070c0;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 25px;
 }
+#ponder:disabled {
+  background-color: #e0f0ff;
+  color: #b0bcc7;
+  font-size: 20px;
+}
+
 #tele {
-  background-color: #f5deb3;
+  background-color: #e0f0ff;
+  color: #004080;
+  border: 2px solid #0070c0;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 25px;
 }
+#tele:disabled {
+  background-color: #e0f0ff;
+  color: #b0bcc7;
+  font-size: 20px;
+}
+
 #scry {
-  background-color: #f5deb3;
+  background-color: #e0f0ff;
+  color: #004080;
+  border: 2px solid #0070c0;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 25px;
 }
+#scry:disabled {
+  background-color: #e0f0ff;
+  color: #b0bcc7;
+  font-size: 20px;
+}
+
 #tower {
-  background-color: #f5deb3;
+  background-color: #e0f0ff;
+  color: #004080;
+  border: 2px solid #0070c0;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 25px;
 }
+#tower:disabled {
+  background-color: #e0f0ff;
+  color: #b0bcc7;
+  font-size: 20px;
+}
+
 #lib {
-  background-color: #f5deb3;
+  background-color: #e0f0ff;
+  color: #004080;
+  border: 2px solid #0070c0;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 25px;
 }
+#lib:disabled {
+  background-color: #e0f0ff;
+  color: #b0bcc7;
+  font-size: 20px;
+}
+
 #site {
-  background-color: #f5deb3;
+  background-color: #e0f0ff;
+  color: #004080;
+  border: 2px solid #0070c0;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 25px;
+}
+#site:disabled {
+  background-color: #e0f0ff;
+  color: #b0bcc7;
+  font-size: 20px;
 }

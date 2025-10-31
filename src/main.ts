@@ -113,6 +113,7 @@ function createDescription(upgrade: Upgrade) {
 //Growth Rate Element | increaseRate is the value of increases per second
 let increaseRate = 0;
 const growthRate = document.createElement("div");
+growthRate.id = "rate";
 growthRate.textContent = `${increaseRate.toFixed(1)} mana per second`;
 
 //Orb Button Element
@@ -123,6 +124,7 @@ orb.textContent = "🔮";
 //Increasing Counter Element
 let counter = 0;
 const counterDisplay = document.createElement("div");
+counterDisplay.id = "counter";
 counterDisplay.textContent = `${counter} mana`;
 
 //Elements to Screen
