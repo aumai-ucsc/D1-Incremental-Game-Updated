@@ -7,6 +7,7 @@ interface Upgrade {
   ammount: number;
   button: HTMLButtonElement; //Clickable button
   description: HTMLDivElement; //Display elements
+  id: string;
 }
 
 const priceIncrease = 1.15;
@@ -21,6 +22,7 @@ const availableItems: Upgrade[] = [
     ammount: 0,
     button: tempButton,
     description: tempDescription,
+    id: "ponder",
   },
   {
     name: "Telescope",
@@ -29,6 +31,7 @@ const availableItems: Upgrade[] = [
     ammount: 0,
     button: tempButton,
     description: tempDescription,
+    id: "tele",
   },
   {
     name: "Scrying Pool",
@@ -37,6 +40,7 @@ const availableItems: Upgrade[] = [
     ammount: 0,
     button: tempButton,
     description: tempDescription,
+    id: "scry",
   },
   {
     name: "Wizard's Tower",
@@ -45,6 +49,7 @@ const availableItems: Upgrade[] = [
     ammount: 0,
     button: tempButton,
     description: tempDescription,
+    id: "tower",
   },
   {
     name: "Library",
@@ -53,6 +58,7 @@ const availableItems: Upgrade[] = [
     ammount: 0,
     button: tempButton,
     description: tempDescription,
+    id: "lib",
   },
   {
     name: "Mystical Site",
@@ -61,12 +67,14 @@ const availableItems: Upgrade[] = [
     ammount: 0,
     button: tempButton,
     description: tempDescription,
+    id: "site",
   },
 ];
 
 //Button creation
 function createUpgradeButton(upgrade: Upgrade) {
   const button = document.createElement("button");
+  button.id = upgrade.id;
   button.textContent = `${upgrade.name} | Cost ${upgrade.cost.toFixed(2)} mana`;
   button.onclick = () => buyUpgrade(upgrade);
   return button;
@@ -109,6 +117,7 @@ growthRate.textContent = `${increaseRate.toFixed(1)} mana per second`;
 
 //Orb Button Element
 const orb = document.createElement("button");
+orb.id = "orb";
 orb.textContent = "🔮";
 
 //Increasing Counter Element
